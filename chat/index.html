@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LLM 与 Agent 知识手册 · 面向证券金融场景的产品经理</title>
+<title>LLM与Agent知识手册（简版） · 面向证券金融场景的产品经理</title>
 <style>
 :root{
   --paper:#E6E8E3;
@@ -52,6 +52,16 @@ body{
 .rail nav a.on{color:var(--ink);border-left-color:var(--rise);font-weight:600}
 .rail nav a.on .num{color:var(--rise)}
 .rail-foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--rule-soft);font-size:11.5px;color:var(--ink-faint);line-height:1.6}
+/* ============ 返回主页 ============ */
+.back-home{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12.5px;color:var(--ink-soft);text-decoration:none;
+  border:1px solid var(--rule);border-radius:999px;
+  padding:5px 12px;margin-bottom:14px;white-space:nowrap;
+  transition:color .15s,border-color .15s;
+}
+.back-home:hover{color:var(--rise);border-color:var(--rise)}
+.mobile-bar .back-home{margin-bottom:0;font-size:12px;flex:none}
 
 /* ============ 首屏 ============ */
 .hero{padding:64px 0 44px;border-bottom:1px solid var(--rule)}
@@ -227,11 +237,11 @@ details[open] summary{border-bottom:1px solid var(--rule-soft)}
   .rail{display:none}
   .main{padding:0 22px 90px}
   .mobile-bar{
-    display:block;position:sticky;top:0;z-index:20;background:var(--paper);
+    display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20;background:var(--paper);
     border-bottom:1px solid var(--rule);padding:10px 22px;
   }
   .mobile-bar select{
-    width:100%;padding:9px 10px;border:1px solid var(--rule);background:var(--card);
+    flex:1;width:auto;padding:9px 10px;border:1px solid var(--rule);background:var(--card);
     font-family:var(--sans);font-size:14px;color:var(--ink);
   }
   .hero{padding:36px 0 34px}
@@ -244,12 +254,14 @@ details[open] summary{border-bottom:1px solid var(--rule-soft)}
 
 <div class="mobile-bar">
   <select id="mobnav" aria-label="跳转到章节"></select>
+  <a class="back-home" href="../index.html">← 主页</a>
 </div>
 
 <div class="shell">
 
 <aside class="rail">
-  <div class="rail-brand">LLM 与 Agent<br>知识手册</div>
+  <a class="back-home" href="../index.html">← 返回主页</a>
+  <div class="rail-brand">LLM与Agent<br>知识手册（简版）</div>
   <div class="rail-sub">证券金融场景 · 产品视角</div>
   <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
   <nav id="toc"></nav>
