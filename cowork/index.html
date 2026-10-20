@@ -10,7 +10,7 @@ body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 </style>
-<title>大模型与 Agent 补课手册</title>
+<title>大模型与Agent补课手册（详细版）</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{
@@ -172,8 +172,19 @@ ul:has(li.cbitem){padding-left:1.7em}
 .mk{font-style:normal}
 .mk-ok{color:var(--grn)}.mk-no{color:var(--red)}.mk-warn{color:var(--brs)}.mk-star{color:var(--brs)}
 
+/* ---------- back home ---------- */
+.back-home{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;
+  border:1px solid var(--rule);border-radius:999px;
+  padding:5px 12px;margin-bottom:14px;white-space:nowrap;
+  transition:color .15s,border-color .15s;
+}
+.back-home:hover{color:var(--acc);border-color:var(--acc-line)}
+
 /* ---------- mobile ---------- */
 .navtoggle{display:none}
+.mobile-topbar{display:none}
 @media (max-width:900px){
   .wrap{grid-template-columns:1fr}
   .rail{position:static;height:auto;max-height:64vh;border-right:0;border-bottom:1px solid var(--rule);
@@ -186,11 +197,15 @@ ul:has(li.cbitem){padding-left:1.7em}
   main{padding:0 18px 90px}
   .mast{padding-top:32px}
   .meta div{flex:1 1 44%}
+  .mobile-topbar{display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:8px 18px}
+  .mobile-topbar .navtoggle{position:static;border:1px solid var(--rule);border-radius:6px;width:auto;flex:none;padding:7px 12px}
+  .mobile-topbar .back-home{margin-bottom:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
 a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:2px}
-@media print{.rail,.navtoggle,#prog{display:none}.wrap{display:block}main{padding:0}}
+@media print{.rail,.navtoggle,.mobile-topbar,#prog{display:none}.wrap{display:block}main{padding:0}}
 </style>
 
 
@@ -221,9 +236,13 @@ pre.mermaid{color:#15202D}
   <button type="button" data-m="dark" aria-pressed="false">深色</button>
 </div>
 <div id="prog"></div>
-<button class="navtoggle" id="ntg">☰ 目录</button>
+<div class="mobile-topbar">
+  <button class="navtoggle" id="ntg">☰ 目录</button>
+  <a class="back-home" href="../index.html">← 主页</a>
+</div>
 <div class="wrap">
   <nav class="rail" id="rail">
+    <a class="back-home" href="../index.html">← 返回主页</a>
     <div class="raillab">Contents</div>
     <div class="tg"><a class="tc" href="#ch0" data-t="ch0"><em>0</em><span>导读：你的知识差距在哪</span></a><div class="tks"><a class="tk" href="#ch0-s0" data-t="ch0-s0"><i>0.1</i>两个时代的对照</a><a class="tk" href="#ch0-s1" data-t="ch0-s1"><i>0.2</i>一句话记住的新范式</a><a class="tk" href="#ch0-s2" data-t="ch0-s2"><i>0.3</i>你和厂商的能力边界</a><a class="tk" href="#ch0-s3" data-t="ch0-s3"><i>0.4</i>全书地图</a></div></div><div class="tg"><a class="tc" href="#ch1" data-t="ch1"><em>1</em><span>底座：大模型到底在做什么</span></a><div class="tks"><a class="tk" href="#ch1-s0" data-t="ch1-s0"><i>1.1</i>Token：模型的计价单位，也是它的认知单位</a><a class="tk" href="#ch1-s1" data-t="ch1-s1"><i>1.2</i>注意力机制：一次&quot;检索&quot;的直觉</a><a class="tk" href="#ch1-s2" data-t="ch1-s2"><i>1.3</i>推理的两个阶段：Prefill 与 Decode</a><a class="tk" href="#ch1-s3" data-t="ch1-s3"><i>1.4</i>采样参数：你能调的旋钮</a><a class="tk" href="#ch1-s4" data-t="ch1-s4"><i>1.5</i>上下文窗口 ≠ 有效上下文</a></div></div><div class="tg"><a class="tc" href="#ch2" data-t="ch2"><em>2</em><span>训练全链路：一个模型是怎么被&quot;养大&quot;的</span></a><div class="tks"><a class="tk" href="#ch2-s0" data-t="ch2-s0"><i>2.1</i>全景图</a><a class="tk" href="#ch2-s1" data-t="ch2-s1"><i>2.2</i>逐阶段拆解</a><a class="tk" href="#ch2-s2" data-t="ch2-s2"><i>2.3</i>Scaling Law 的三次转向</a><a class="tk" href="#ch2-s3" data-t="ch2-s3"><i>2.4</i>MoE：参数量 ≠ 激活量</a><a class="tk" href="#ch2-s4" data-t="ch2-s4"><i>2.5</i>推理模型（Reasoning Model）是怎么来的，什么时候该用</a><a class="tk" href="#ch2-s5" data-t="ch2-s5"><i>2.6</i>Agentic 训练：模型的&quot;会用工具&quot;是怎么练出来的</a><a class="tk" href="#ch2-s6" data-t="ch2-s6"><i>2.7</i>微调选型：先问对问题</a><a class="tk" href="#ch2-s7" data-t="ch2-s7"><i>2.8</i>高频误解清单</a></div></div><div class="tg"><a class="tc" href="#ch3" data-t="ch3"><em>3</em><span>能力边界与失效模式</span></a><div class="tks"><a class="tk" href="#ch3-s0" data-t="ch3-s0"><i>3.1</i>幻觉：三种成因，三套解法</a><a class="tk" href="#ch3-s1" data-t="ch3-s1"><i>3.2</i>三条不可让步的技术底线（证券场景）</a><a class="tk" href="#ch3-s2" data-t="ch3-s2"><i>3.3</i>本项目最重要的一条边界：客观 vs 主观</a><a class="tk" href="#ch3-s3" data-t="ch3-s3"><i>3.4</i>四类需要分层拦截的风险</a><a class="tk" href="#ch3-s4" data-t="ch3-s4"><i>3.5</i>兜底与应急</a></div></div><div class="tg"><a class="tc" href="#ch4" data-t="ch4"><em>4</em><span>上下文工程：AI 产品最核心的手艺</span></a><div class="tks"><a class="tk" href="#ch4-s0" data-t="ch4-s0"><i>4.1</i>四选一决策树</a><a class="tk" href="#ch4-s1" data-t="ch4-s1"><i>4.2</i>RAG 全景架构</a><a class="tk" href="#ch4-s2" data-t="ch4-s2"><i>4.3</i>RAG 的十个坑（按线上出问题的频率排序）</a><a class="tk" href="#ch4-s3" data-t="ch4-s3"><i>4.4</i>上下文工程四招：写、选、压、隔</a><a class="tk" href="#ch4-s4" data-t="ch4-s4"><i>4.5</i>System Prompt 的分层写法</a><a class="tk" href="#ch4-s5" data-t="ch4-s5"><i>4.6</i>Agentic RAG：让模型自己决定怎么检索</a></div></div><div class="tg"><a class="tc" href="#ch5" data-t="ch5"><em>5</em><span>Agent 的两种形态：Workflow 型与 Agentic 型</span></a><div class="tks"><a class="tk" href="#ch5-s0" data-t="ch5-s0"><i>5.1</i>术语对齐（本文档统一口径）</a><a class="tk" href="#ch5-s1" data-t="ch5-s1"><i>5.2</i>唯一的分界线：控制流由谁决定</a><a class="tk" href="#ch5-s2" data-t="ch5-s2"><i>5.3</i>两种形态都搭载 Skill 与 MCP</a><a class="tk" href="#ch5-s3" data-t="ch5-s3"><i>5.4</i>四档细分与本项目场景定级</a><a class="tk" href="#ch5-s4" data-t="ch5-s4"><i>5.5</i>三种常见的 Agentic 形态</a><a class="tk" href="#ch5-s5" data-t="ch5-s5"><i>5.6</i>ReAct 循环</a><a class="tk" href="#ch5-s6" data-t="ch5-s6"><i>5.7</i>工具调用（Function Calling）的真实机制</a><a class="tk" href="#ch5-s7" data-t="ch5-s7"><i>5.8</i>工具设计原则（业务方也要管这件事）</a><a class="tk" href="#ch5-s8" data-t="ch5-s8"><i>5.9</i>规划模式对比</a><a class="tk" href="#ch5-s9" data-t="ch5-s9"><i>5.10</i>记忆的四层</a><a class="tk" href="#ch5-s10" data-t="ch5-s10"><i>5.11</i>多智能体：什么时候值得</a><a class="tk" href="#ch5-s11" data-t="ch5-s11"><i>5.12</i>Agent 的七种典型失败（请直接抄进 PRD）</a></div></div><div class="tg"><a class="tc" href="#ch6" data-t="ch6"><em>6</em><span>Harness：厂商交付的脚手架，与你的验收清单</span></a><div class="tks"><a class="tk" href="#ch6-s0" data-t="ch6-s0"><i>6.1</i>什么是 Harness</a><a class="tk" href="#ch6-s1" data-t="ch6-s1"><i>6.2</i>Harness 的九个组件</a><a class="tk" href="#ch6-s2" data-t="ch6-s2"><i>6.3</i>一次请求在 Harness 里的完整旅程</a><a class="tk" href="#ch6-s3" data-t="ch6-s3"><i>6.4</i>采购验收清单（建议逐条写进技术协议）</a><a class="tk" href="#ch6-s4" data-t="ch6-s4"><i>6.5</i>六个关键设计决策（业务方必须参与，不能让厂商默认）</a></div></div><div class="tg"><a class="tc" href="#ch7" data-t="ch7"><em>7</em><span>Skill 与 MCP：能力的封装与接入</span></a><div class="tks"><a class="tk" href="#ch7-s0" data-t="ch7-s0"><i>7.1</i>能力分层图</a><a class="tk" href="#ch7-s1" data-t="ch7-s1"><i>7.2</i>MCP 是什么，为什么值得要求厂商支持</a><a class="tk" href="#ch7-s2" data-t="ch7-s2"><i>7.3</i>Skill 是什么</a><a class="tk" href="#ch7-s3" data-t="ch7-s3"><i>7.4</i>四种能力封装方式的选型表</a></div></div><div class="tg"><a class="tc" href="#ch8" data-t="ch8"><em>8</em><span>业务侧怎么写好一个 Skill</span></a><div class="tks"><a class="tk" href="#ch8-s0" data-t="ch8-s0"><i>8.1</i>为什么 Skill 是你唯一必须握住的东西</a><a class="tk" href="#ch8-s1" data-t="ch8-s1"><i>8.2</i>Skill 的粒度：场景级 + 公共库</a><a class="tk" href="#ch8-s2" data-t="ch8-s2"><i>8.3</i>好 Skill 的七条判据</a><a class="tk" href="#ch8-s3" data-t="ch8-s3"><i>8.4</i>给两种形态写 Skill 的差别</a><a class="tk" href="#ch8-s4" data-t="ch8-s4"><i>8.5</i>业务方最常犯的五个错误</a><a class="tk" href="#ch8-s5" data-t="ch8-s5"><i>8.6</i>从业务需求到 Skill 的五步法</a><a class="tk" href="#ch8-s6" data-t="ch8-s6"><i>8.7</i>完整实例：大盘行情分析</a><a class="tk" href="#ch8-s7" data-t="ch8-s7"><i>8.8</i>配套评测集怎么写</a><a class="tk" href="#ch8-s8" data-t="ch8-s8"><i>8.9</i>Skill 的版本管理与发布</a></div></div><div class="tg"><a class="tc" href="#ch9" data-t="ch9"><em>9</em><span>评估与运营：把运营管理平台真正用起来</span></a><div class="tks"><a class="tk" href="#ch9-s0" data-t="ch9-s0"><i>9.1</i>为什么传统 QA 在这里失效</a><a class="tk" href="#ch9-s1" data-t="ch9-s1"><i>9.2</i>评估金字塔</a><a class="tk" href="#ch9-s2" data-t="ch9-s2"><i>9.3</i>Eval Harness：谁提供框架，谁填内容</a><a class="tk" href="#ch9-s3" data-t="ch9-s3"><i>9.4</i>怎么建第一版评测集（业务方主导，人力有限时的做法）</a><a class="tk" href="#ch9-s4" data-t="ch9-s4"><i>9.5</i>指标体系（对齐需求文档的数据分析需求）</a><a class="tk" href="#ch9-s5" data-t="ch9-s5"><i>9.6</i>LLM-as-Judge 的坑</a><a class="tk" href="#ch9-s6" data-t="ch9-s6"><i>9.7</i>红线评估：口径是漏放数，不是准确率</a><a class="tk" href="#ch9-s7" data-t="ch9-s7"><i>9.8</i>运营平台的四件事，业务方要主动用起来</a></div></div><div class="tg"><a class="tc" href="#ch10" data-t="ch10"><em>10</em><span>成本与 Token 管控</span></a><div class="tks"><a class="tk" href="#ch10-s0" data-t="ch10-s0"><i>10.1</i>计价结构：五种 token</a><a class="tk" href="#ch10-s1" data-t="ch10-s1"><i>10.2</i>最容易被低估的一点：上下文复读</a><a class="tk" href="#ch10-s2" data-t="ch10-s2"><i>10.3</i>两个场景的成本测算对照</a><a class="tk" href="#ch10-s3" data-t="ch10-s3"><i>10.4</i>六个降本手段（按性价比排序）</a><a class="tk" href="#ch10-s4" data-t="ch10-s4"><i>10.5</i>Token 管控规则怎么设计</a><a class="tk" href="#ch10-s5" data-t="ch10-s5"><i>10.6</i>延迟与体验</a></div></div><div class="tg"><a class="tc" href="#ch11" data-t="ch11"><em>11</em><span>业务方 × 厂商：分工、验收与人力配置</span></a><div class="tks"><a class="tk" href="#ch11-s0" data-t="ch11-s0"><i>11.1</i>RACI 分工表</a><a class="tk" href="#ch11-s1" data-t="ch11-s1"><i>11.2</i>五件绝对不能外包的事</a><a class="tk" href="#ch11-s2" data-t="ch11-s2"><i>11.3</i>采购合同里建议写死的六个条款</a><a class="tk" href="#ch11-s3" data-t="ch11-s3"><i>11.4</i>人力有限时的最小配置</a><a class="tk" href="#ch11-s4" data-t="ch11-s4"><i>11.5</i>与厂商的协作节奏</a></div></div><div class="tg"><a class="tc" href="#ch12" data-t="ch12"><em>12</em><span>落地：场景优先级与建设节奏</span></a><div class="tks"><a class="tk" href="#ch12-s0" data-t="ch12-s0"><i>12.1</i>需求文档全部场景的形态定级建议</a><a class="tk" href="#ch12-s1" data-t="ch12-s1"><i>12.2</i>三阶段建设节奏</a><a class="tk" href="#ch12-s2" data-t="ch12-s2"><i>12.3</i>首发场景为什么推荐&quot;大盘行情分析&quot;</a><a class="tk" href="#ch12-s3" data-t="ch12-s3"><i>12.4</i>一个&quot;大盘行情分析&quot;的完整技术剖面</a></div></div><div class="tg"><a class="tc" href="#ch13" data-t="ch13"><em class="x">§</em><span>附录 A：术语速查表</span></a><div class="tks"></div></div><div class="tg"><a class="tc" href="#ch14" data-t="ch14"><em class="x">§</em><span>附录 B：Skill 写作检查清单（可打印）</span></a><div class="tks"></div></div><div class="tg"><a class="tc" href="#ch15" data-t="ch15"><em class="x">§</em><span>附录 C：30 天上手路径</span></a><div class="tks"></div></div><div class="tg"><a class="tc" href="#ch16" data-t="ch16"><em class="x">§</em><span>参考来源</span></a><div class="tks"></div></div>
   </nav>
@@ -231,7 +250,7 @@ pre.mermaid{color:#15202D}
     <div class="col">
       <header class="mast">
         <p class="eyebrow">App AI 能力建设 · 业务方内部学习资料 · 2026.09</p>
-        <h1>大模型与 Agent 补课手册</h1>
+        <h1>大模型与Agent补课手册（详细版）</h1>
         <p class="sub">写给 App AI 能力建设业务方的知识地图。模型、Harness、Agent 框架由厂商交付，Skill、口径与评测由我们自己填——这本手册按这个分工写。</p>
         <div class="meta">
           <div><b>13</b><span>章节</span></div>
