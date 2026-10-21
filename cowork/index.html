@@ -3710,8 +3710,15 @@ flowchart LR
   var rail=document.getElementById('rail'),prog=document.getElementById('prog');
   var ntg=document.getElementById('ntg');
   if(ntg)ntg.addEventListener('click',function(){rail.classList.toggle('show');});
+  var reduceMotion=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   rail.addEventListener('click',function(e){
-    if(e.target.closest('a')&&window.innerWidth<=900)rail.classList.remove('show');
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var t=document.getElementById(a.getAttribute('href').slice(1));if(!t)return;
+    e.preventDefault();
+    if(window.innerWidth<=900)rail.classList.remove('show');
+    window.__tocTs=Date.now();
+    t.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'});
+    try{history.pushState(null,'',a.getAttribute('href'));}catch(err){}
   });
   var chaps=[].slice.call(document.querySelectorAll('.chapter'));
   var heads=[].slice.call(document.querySelectorAll('.chapter, h3[id]'));
@@ -3728,7 +3735,7 @@ flowchart LR
     }
     if(rail.scrollHeight>rail.clientHeight+10&&window.innerWidth>900){
       var r=a.getBoundingClientRect(),rr=rail.getBoundingClientRect();
-      if(r.top<rr.top+40||r.bottom>rr.bottom-40)a.scrollIntoView({block:'center'});
+      if(r.top<rr.top+40||r.bottom>rr.bottom-40)rail.scrollTop+=r.top+r.height/2-(rr.top+rr.height/2);
     }
   }
   function onScroll(){
@@ -3768,7 +3775,12 @@ flowchart LR
         fontFamily:'-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif',
         primaryColor:'#E7EDF5',primaryTextColor:'#15202D',primaryBorderColor:'#4A7BA7',
         lineColor:'#7E8C9C',secondaryColor:'#F0E8DE',tertiaryColor:'#F4F6F8'}});
-    mermaid.run({querySelector:'pre.mermaid'}).catch(fallback);
+    mermaid.run({querySelector:'pre.mermaid'}).then(function(){
+      if(window.__tocTs&&Date.now()-window.__tocTs<2500){
+        var t=document.getElementById((location.hash||'').slice(1));
+        if(t)t.scrollIntoView({block:'start'});
+      }
+    }).catch(fallback);
   }catch(e){fallback();}
 })();
 </script>
